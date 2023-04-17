@@ -10,7 +10,11 @@ export default defineConfig({
   //default
   ,publicDir: "public"
   ,server:{host: "0.0.0.0", port: 5173}
-  , build : {
-    target: ['chrome58']
+  ,preview: {open: "firefox", https: true, strictPort: true, port: 80}
+  ,build : {
+    target: ['chrome57', 'firefox57', 'node12', 'safari11']
+    ,manifest: true
+    ,outDir: "build"
+
   }
 })

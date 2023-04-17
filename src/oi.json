@@ -1,0 +1,50 @@
+{
+    "i1": {
+        "id": null,
+        "parts": [
+            {
+                "id": 0,
+                "position": "i1",
+                "description": "dasda",
+                "sendBy": null
+            }
+        ]
+    },
+    "i2": {
+        "id": null,
+        "parts": [
+            {
+                "id": 0,
+                "position": "i2",
+                "description": "adasda",
+                "sendBy": null
+            }
+        ]
+    },
+    "i3": {
+        "id": null,
+        "parts": [
+            {
+                "id": 0,
+                "position": "i3",
+                "description": "dasda",
+                "sendBy": null
+            }
+        ]
+    },
+    "i4": {
+        "id": null,
+        "parts": [
+            {
+                "id": 0,
+                "position": "i4",
+                "description": "asdasd",
+                "sendBy": null
+            }
+        ]
+    },
+    "i0": {
+        "id": null,
+        "parts": []
+    }
+}

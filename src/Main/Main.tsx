@@ -122,12 +122,19 @@ function Main() {
                                             <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
                                                 <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
                                             </Typography>
-                                            {card.refs.map((ref, index) => (
+                                            {
+                                            card.refs.length == 0 ?
+                                                <div className='flex items-center'>
+                                                    <ArrowRightIcon sx={{ mt: '0.2rem' }}/>
+                                                    <p>Sem referências</p>
+                                                </div>
+                                            :
+                                            card.refs.map((ref: string, index) => (
                                                 <div key={index} className='flex'>
                                                     <ArrowRightIcon/>
-                                                    <div className='text-blue-400 text-ellipsis overflow-hidden whitespace-nowrap max-w-per'>
-                                                        <a href={ref}>{ref}</a>
-                                                    </div>
+                                                        <div className='text-blue-400 text-ellipsis overflow-hidden whitespace-nowrap max-w-per'>
+                                                            <a href={ref}>{ref}</a>
+                                                        </div> 
                                                 </div>
                                             ))}
                                         </CardContent>
