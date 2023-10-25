@@ -51,6 +51,7 @@ function Main() {
         setLoading(true);
         try {
             const resonse = await api.get('/myvideos');
+            console.log("Dados recebidos:", resonse.data);
             setListCards(resonse.data);
             setCards(resonse.data);
             setLoading(false);
@@ -79,6 +80,38 @@ function Main() {
         } else {
             searchFun();
             setError(false);
+        }
+    }
+
+    function renderRefs(card) {
+        try {
+            const refsArray = JSON.parse(card.refs);
+            if (Array.isArray(refsArray) && refsArray.length === 0) {
+                return (
+                    <div className='flex items-center'>
+                        <ArrowRightIcon sx={{ mt: '0.2rem' }}/>
+                        <p>Sem referências</p>
+                    </div>
+                );
+            } else if (Array.isArray(refsArray)) {
+                return refsArray.map((ref: string, index) => (
+                    <div key={index} className='flex'>
+                        <ArrowRightIcon/>
+                        <div className='text-blue-400 text-ellipsis overflow-hidden whitespace-nowrap max-w-per'>
+                            <a href={ref}>{ref}</a>
+                        </div>
+                    </div>
+                ));
+            } else {
+                return null;
+            }
+        } catch (e) {
+            return (
+                <div>
+                    <div>{card.refs}</div>
+                    <div>Error: card.refs não é um array e não pode ser analisado como JSON!</div>
+                </div>
+            );
         }
     }
 
@@ -118,26 +151,12 @@ function Main() {
                             { listCards.map((card : Videos) => (
                                 <div key={card.id} className='w-full mb-7 border border-slate-500 shadow-lg shadow-slate-500'>
                                     <Card sx={{ maxWidth: 1800, minWidth: 200 }} className='h-full'>
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
-                                                <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
-                                            </Typography>
-                                            {
-                                            card.refs.length == 0 ?
-                                                <div className='flex items-center'>
-                                                    <ArrowRightIcon sx={{ mt: '0.2rem' }}/>
-                                                    <p>Sem referências</p>
-                                                </div>
-                                            :
-                                            card.refs.map((ref: string, index) => (
-                                                <div key={index} className='flex'>
-                                                    <ArrowRightIcon/>
-                                                        <div className='text-blue-400 text-ellipsis overflow-hidden whitespace-nowrap max-w-per'>
-                                                            <a href={ref}>{ref}</a>
-                                                        </div> 
-                                                </div>
-                                            ))}
-                                        </CardContent>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
+                                            <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
+                                        </Typography>
+                                        {renderRefs(card)}
+                                    </CardContent>
                                     </Card>
                                 </div>
                             )) }
