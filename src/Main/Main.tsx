@@ -50,7 +50,7 @@ function Main() {
     async function apiGetIntens() {
         setLoading(true);
         try {
-            const resonse = await api.get('/myvideos');
+            const resonse = await api.get('/myvideo/withrefs');
             console.log("Dados recebidos:", resonse.data);
             setListCards(resonse.data);
             setCards(resonse.data);
@@ -83,7 +83,7 @@ function Main() {
         }
     }
 
-    function renderRefs(card) {
+    function renderRefs(card: any) {
         try {
             const refsArray = JSON.parse(card.refs);
             if (Array.isArray(refsArray) && refsArray.length === 0) {

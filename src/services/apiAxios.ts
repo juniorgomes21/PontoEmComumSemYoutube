@@ -5,7 +5,7 @@ import axios from "axios";
 // const lol = `http://{process.env.IP_HOST}:{process.env.PORT || 8080} || localhost:{process.env.PORT || 8080}/api/info`;
 
 const api = axios.create({
-    baseURL: `http://localhost:8586`,  //`https://referenciasemcomum.com:8443/api/info`, // mudar o endereço
+    baseURL: `https://referenciasporai.com/api/v1`,  //`https://referenciasemcomum.com:8443/api/info`, // mudar o endereço
     data: {},
     headers: {}
 })
