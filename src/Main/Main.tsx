@@ -17,7 +17,7 @@ import YouTube, { YouTubeProps } from 'react-youtube';
 import api from '../services/apiAxios';
 import { CircularProgress } from '@mui/material';
 
-type Videos = {
+type Video = {
     id: number;
     ytId: string;
     title: string;
@@ -31,8 +31,8 @@ function Main() {
     const [loading, setLoading] = useState<boolean>(true);
     const [searchText, setSearchText] = useState<string>('');
     const [error, setError] = useState<boolean>(false);
-    const [cards, setCards] = useState<Videos[]>([]);
-    const [listCards, setListCards] = useState<Videos[]>([]);
+    const [cards, setCards] = useState<Video[]>([]);
+    const [listCards, setListCards] = useState<Video[]>([]);
 
     useEffect(() => {
         if(cards.length == 0) {
@@ -51,7 +51,7 @@ function Main() {
         setLoading(true);
         try {
             const resonse = await api.get('/myvideo/withrefs');
-            console.log("Dados recebidos:", resonse.data);
+            // console.log("Dados recebidos:", resonse.data); //@debug
             setListCards(resonse.data);
             setCards(resonse.data);
             setLoading(false);
@@ -83,9 +83,10 @@ function Main() {
         }
     }
 
-    function renderRefs(card: any) {
+    function renderRefs(card: Video) {
         try {
-            const refsArray = JSON.parse(card.refs);
+            // console.log(card.refs) //@debug
+            const refsArray = card.refs;
             if (Array.isArray(refsArray) && refsArray.length === 0) {
                 return (
                     <div className='flex items-center'>
@@ -109,6 +110,7 @@ function Main() {
             return (
                 <div>
                     <div>{card.refs}</div>
+                    <div>{String(e)}</div>
                     <div>Error: card.refs não é um array e não pode ser analisado como JSON!</div>
                 </div>
             );
@@ -148,7 +150,7 @@ function Main() {
 
                     <div className='flex w-6/12 justify-center'>
                         <Box className='flex flex-wrap justify-center' sx={{ '& > :not(style)': { m: 1 } }}>
-                            { listCards.map((card : Videos) => (
+                            { listCards.map((card : Video) => (
                                 <div key={card.id} className='w-full mb-7 border border-slate-500 shadow-lg shadow-slate-500'>
                                     <Card sx={{ maxWidth: 1800, minWidth: 200 }} className='h-full'>
                                     <CardContent>
