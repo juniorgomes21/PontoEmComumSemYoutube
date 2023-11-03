@@ -14,7 +14,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import YouTube, { YouTubeProps } from 'react-youtube';
-import api from '../services/apiAxios';
+import api from '../../../services/apiAxios';
 import { CircularProgress } from '@mui/material';
 
 type Video = {
@@ -37,7 +37,6 @@ function Main() {
     useEffect(() => {
         if(cards.length == 0) {
             apiGetIntens();
-            
         }
         if (searchFun.length == 0) {
             if(cards.length != 0) {

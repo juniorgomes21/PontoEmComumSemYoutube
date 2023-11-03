@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import Footer from './Footer/Footer'
-import Header from './Header/Header'
-import Main from './Main/Main'
+import { BrowserRouter } from 'react-router-dom';
+import Header from './screens/main/Header/Header'
+import Main from './screens/main/main/Main'
+import Index from './screens/Index';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="text-red-600">
-      <Header/>
-      <Main/>
-    </div>
+    <BrowserRouter>
+      <Index />
+    </BrowserRouter>
   )
 }
 
