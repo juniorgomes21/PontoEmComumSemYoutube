@@ -12,8 +12,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { Button, CircularProgress } from '@mui/material';
+import { Alert, Button, CircularProgress } from '@mui/material';
 import api from '../../services/apiAxios';
+import { Link } from 'react-router-dom';
 
 type Video = {
     id: number;
@@ -77,7 +78,7 @@ function ReloadRefs() {
         try {
             if(!(searchText.length == 0)) {
                 const allArray = cards;
-                let newCards = allArray.filter(cards => (cards.title.toLowerCase().includes(searchText)));
+                let newCards = allArray.filter(cards => (cards.title.toLowerCase().includes(searchText.toLowerCase())));
                 setListCards(newCards);
             }
             
@@ -108,11 +109,11 @@ function ReloadRefs() {
                               <CircularProgress size={25} />
                             </div>
                         : 
-                          <div className='flex justify-between items-center mt-8'>
-                            <div className='flex items-center'>
+                          <div className='flex justify-center items-center mt-8'>
+                            {/* <div className='flex items-center'>
                               <ArrowRightIcon sx={{ mt: '0.2rem' }}/>
                               <p>Sem referências</p>
-                            </div>
+                            </div> */}
                             <Button
                               variant='outlined'
                               size='small'
@@ -150,8 +151,28 @@ function ReloadRefs() {
     }
 
     return (
-        <div className='w-full flex items-center flex-col'>
-            <Box className='flex justify-center' sx={{ '& > :not(style)': { m: 1 }, width: '100%' }}>
+        <div className='w-full flex items-center flex-col relative'>
+            <div className="flex justify-center fixed bg-black p-2 w-full top-0 z-20">
+                <div className="flex justify-between w-[98%]">
+                <Link to="/">
+                    <Button
+                    variant="contained"
+                    className="mr-2"
+                    >
+                    Menu principal
+                    </Button>
+                </Link>
+                <Link to="/ad">
+                    <Button
+                    variant="contained"
+                    className="ml-2"
+                    >
+                        Likar
+                    </Button>
+                </Link>
+                </div>
+            </div>
+            <Box className='flex justify-center mt-14' sx={{ '& > :not(style)': { m: 1 }, width: '100%' }}>
                 <FormControl sx={{ m: 1, width: '80%' }} variant="outlined">
                     <OutlinedInput
                         id="outlined-adornment-weight"
@@ -170,14 +191,19 @@ function ReloadRefs() {
                     <FormHelperText id="outlined-weight-helper-text" error={error} >{error ? 'Este valor é inválido!' : ''}</FormHelperText>
                 </FormControl>
             </Box>
-            <div className='flex w-6/12 justify-center'>
-                <div className='flex w-6/12 justify-center'>
+            <div className='mt-3'>
+                <Alert variant="outlined" severity="info">
+                    Todos os arquivos nessa página não contém referências
+                </Alert>
+            </div>
+            <div className='flex w-6/12 justify-center mt-3'>
+                <div className='flex w-full md:w-8/12 justify-center'>
                     <Box className='flex flex-wrap justify-center' sx={{ '& > :not(style)': { m: 1 } }}>
                         { listCards.map((card : Video) => (
                             <div key={card.id} className='w-full mb-7 border border-slate-500 shadow-lg shadow-slate-500'>
                                 <Card sx={{ maxWidth: 1800, minWidth: 200 }} className='h-full'>
-                                  <CardContent>
-                                      <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
+                                  <CardContent className=''>
+                                      <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold text-center'>
                                           <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
                                       </Typography>
                                       {RenderRefs(card)}

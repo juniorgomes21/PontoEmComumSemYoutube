@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Alert, CircularProgress } from "@mui/material";
 import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import { Link } from "react-router-dom";
 
 type ObjFreeTubes = {
   id: number,
@@ -106,12 +107,12 @@ function Comparison() {
   }
 
   function searchFun() {
-    let newCards = filesCopy.filter(card => (card.file_name.toLowerCase().includes(searchTextFile)));
+    let newCards = filesCopy.filter(card => (card.file_name.toLowerCase().includes(searchTextFile.toLowerCase())));
     setFiles(newCards);
   }
 
   function searchFunTube() {
-    let newCards = tubesCopy.filter(card => (card.title.toLowerCase().includes(searchTextTube)));
+    let newCards = tubesCopy.filter(card => (card.title.toLowerCase().includes(searchTextTube.toLowerCase())));
     setTubes(newCards);
   }
 
@@ -124,8 +125,28 @@ function Comparison() {
   };
 
   return (
-      <div className="flex justify-center h-full relative">
-        <div className="flex-col w-[98%] relative">
+      <div className="flex flex-col items-center h-full relative">
+        <div className="flex justify-center fixed bg-black p-2 w-full top-0 z-20">
+            <div className="flex justify-between w-[98%]">
+              <Link to="/">
+                <Button
+                  variant="contained"
+                  className="mr-2"
+                >
+                  Menu principal
+                </Button>
+              </Link>
+              <Link to="/op">
+                <Button
+                  variant="contained"
+                  className="ml-2"
+                >
+                  Referências
+                </Button>
+              </Link>
+            </div>
+        </div>
+        <div className="flex-col w-[98%] mt-14 relative z-10">
           <div className="fixed bottom-10 right-10">
             <Button
               color="success"
@@ -137,6 +158,7 @@ function Comparison() {
           </div>
           <div className="flex w-[98%]">
             <div className="w-1/2 h-full">
+              <p className="m-2 font-bold">GOOGLE DRIVE</p>
               <div className="m-2">
                 <TextField
                   fullWidth
@@ -163,6 +185,7 @@ function Comparison() {
               }
             </div>
             <div className="w-1/2 h-full border-l-[1px] border-zinc-600">
+              <p className="m-2 font-bold">YOUTUBE</p>
               <div className="m-2">
                 <TextField
                   fullWidth

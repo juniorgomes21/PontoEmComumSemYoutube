@@ -12,8 +12,9 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.10.6",
+    "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.4",
     "@types/node": "^18.11.10",
     "axios": "^1.1.2",
     "dotenv": "^16.0.3",
@@ -24,7 +25,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "react-youtube": "^10.0.0",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
