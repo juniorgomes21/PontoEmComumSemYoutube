@@ -106,13 +106,19 @@ function Comparison() {
     }
   }
 
+  function removeAccents(str: string) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
   function searchFun() {
-    let newCards = filesCopy.filter(card => (card.file_name.toLowerCase().includes(searchTextFile.toLowerCase())));
+    const searchTextNormalized = removeAccents(searchTextFile).toLowerCase();
+    let newCards = filesCopy.filter(card => removeAccents(card.file_name).toLowerCase().includes(searchTextNormalized));
     setFiles(newCards);
   }
 
   function searchFunTube() {
-    let newCards = tubesCopy.filter(card => (card.title.toLowerCase().includes(searchTextTube.toLowerCase())));
+    const searchTextNormalized = removeAccents(searchTextTube).toLowerCase();
+    let newCards = tubesCopy.filter(card => removeAccents(card.title).toLowerCase().includes(searchTextNormalized));
     setTubes(newCards);
   }
 
@@ -127,23 +133,25 @@ function Comparison() {
   return (
       <div className="flex flex-col items-center h-full relative">
         <div className="flex justify-center fixed bg-black p-2 w-full top-0 z-20">
-            <div className="flex justify-between w-[98%]">
-              <Link to="/">
-                <Button
-                  variant="contained"
-                  className="mr-2"
-                >
-                  Menu principal
-                </Button>
-              </Link>
-              <Link to="/op">
-                <Button
-                  variant="contained"
-                  className="ml-2"
-                >
-                  Referências
-                </Button>
-              </Link>
+            <div className="flex justify-center w-[98%]">
+              <div className="flex justify-between w-1/6">
+                <Link to="/">
+                  <Button
+                    variant="contained"
+                    className="mr-2"
+                  >
+                    Início
+                  </Button>
+                </Link>
+                <Link to="/op">
+                  <Button
+                    variant="contained"
+                    className="ml-2"
+                  >
+                    Referências
+                  </Button>
+                </Link>
+              </div>
             </div>
         </div>
         <div className="flex-col w-[98%] mt-14 relative z-10">

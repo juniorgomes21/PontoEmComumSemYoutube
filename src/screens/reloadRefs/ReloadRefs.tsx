@@ -74,16 +74,16 @@ function ReloadRefs() {
       }
     }
 
+    function removeAccents(str: string) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
     function searchFun() {
-        try {
-            if(!(searchText.length == 0)) {
-                const allArray = cards;
-                let newCards = allArray.filter(cards => (cards.title.toLowerCase().includes(searchText.toLowerCase())));
-                setListCards(newCards);
-            }
-            
-        } catch (e: any) {
-            console.log(e);
+        if(!(searchText.length == 0)) {
+            const allArray = cards;
+            const searchTextNormalized = removeAccents(searchText).toLowerCase();
+            let newCards = allArray.filter(cards => removeAccents(cards.title).toLowerCase().includes(searchTextNormalized));
+            setListCards(newCards);
         }
     }
 
@@ -153,23 +153,25 @@ function ReloadRefs() {
     return (
         <div className='w-full flex items-center flex-col relative'>
             <div className="flex justify-center fixed bg-black p-2 w-full top-0 z-20">
-                <div className="flex justify-between w-[98%]">
-                <Link to="/">
-                    <Button
-                    variant="contained"
-                    className="mr-2"
-                    >
-                    Menu principal
-                    </Button>
-                </Link>
-                <Link to="/ad">
-                    <Button
-                    variant="contained"
-                    className="ml-2"
-                    >
-                        Likar
-                    </Button>
-                </Link>
+                <div className="flex justify-center w-[98%]">
+                    <div className="flex justify-between w-1/6">
+                        <Link to="/">
+                            <Button
+                            variant="contained"
+                            className="mr-2"
+                            >
+                                Início
+                            </Button>
+                        </Link>
+                        <Link to="/ad">
+                            <Button
+                            variant="contained"
+                            className="ml-2"
+                            >
+                                Linkar
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </div>
             <Box className='flex justify-center mt-14' sx={{ '& > :not(style)': { m: 1 }, width: '100%' }}>

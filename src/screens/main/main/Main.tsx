@@ -16,6 +16,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import YouTube, { YouTubeProps } from 'react-youtube';
 import api from '../../../services/apiAxios';
 import { CircularProgress } from '@mui/material';
+import axios from 'axios';
 
 type Video = {
     id: number;
@@ -60,16 +61,16 @@ function Main() {
         }
     }
 
+    function removeAccents(str: string) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
     function searchFun() {
-        try {
-            if(!(searchText.length == 0)) {
-                const allArray = cards;
-                let newCards = allArray.filter(cards => (cards.title.toLowerCase().includes(searchText)));
-                setListCards(newCards);
-            }
-            
-        } catch (e: any) {
-            console.log(e);
+        if(!(searchText.length == 0)) {
+            const allArray = cards;
+            const searchTextNormalized = removeAccents(searchText).toLowerCase();
+            let newCards = allArray.filter(cards => removeAccents(cards.title).toLowerCase().includes(searchTextNormalized));
+            setListCards(newCards);
         }
     }
 
@@ -152,12 +153,12 @@ function Main() {
                             { listCards.map((card : Video) => (
                                 <div key={card.id} className='w-full mb-7 border border-slate-500 shadow-lg shadow-slate-500'>
                                     <Card sx={{ maxWidth: 1800, minWidth: 200 }} className='h-full'>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
-                                            <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
-                                        </Typography>
-                                        {renderRefs(card)}
-                                    </CardContent>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="div" className='decoration-solid Roboto text-2xl font-semibold'>
+                                                <a href={"https://www.youtube.com/watch?v=" + card.ytId}>{card.title}</a>
+                                            </Typography>
+                                            {renderRefs(card)}
+                                        </CardContent>
                                     </Card>
                                 </div>
                             )) }
